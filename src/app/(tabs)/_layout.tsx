@@ -20,7 +20,7 @@ export default function TabsLayout() {
         options={{
           headerTitle: () => (
             <Image
-              source={require("../../assets/Oracle1.png")}
+              source={require("../../assets/Oracle2.png")}
               style={{ width: 100, height: 75, resizeMode: "contain" }}
             />
           ),

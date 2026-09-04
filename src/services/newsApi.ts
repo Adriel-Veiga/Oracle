@@ -1,7 +1,7 @@
 //SERVIÇO DE NOTÍCIAS (API)
 import axios from "axios";
 
-const API_KEY = "4b5533871185424dbf060a039471fe94";
+const API_KEY = process.env.EXPO_PUBLIC_NEWS_API_KEY;
 const BASE_URL = "https://newsapi.org/v2";
 
 const api = axios.create({

@@ -3,7 +3,7 @@ import axios from "axios";
 
 const API_KEY = process.env.EXPO_PUBLIC_NEWS_API_KEY;
 const BASE_URL = "https://newsapi.org/v2";
-
+// cria uma instância do axios com a URL base e a chave de API
 const api = axios.create({
   baseURL: BASE_URL,
   params: {
@@ -21,7 +21,7 @@ export interface Noticia {
     name: string;
   };
 }
-
+// busca notícias na API
 export async function buscarNoticias(
   categoria?: string,
   termoBusca?: string,

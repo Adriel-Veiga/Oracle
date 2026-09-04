@@ -9,10 +9,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { cores } from "../../theme/cores";
 
 export default function Detalhes() {
   const params = useLocalSearchParams();
-
+  // extrai os parâmetros da notícia da URL
   const titulo = params.titulo as string;
   const descricao = params.descricao as string;
   const imagem = params.imagem as string;
@@ -46,18 +47,28 @@ export default function Detalhes() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
+  container: { flex: 1, backgroundColor: cores.fundo },
   imagem: { width: "100%", height: 220 },
   conteudo: { padding: 16 },
-  titulo: { fontSize: 18, fontWeight: "700", marginBottom: 6 },
-  meta: { fontSize: 12, color: "#666", marginBottom: 12 },
-  descricao: { fontSize: 14, color: "#333", lineHeight: 20, marginBottom: 20 },
+  titulo: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: cores.texto,
+    marginBottom: 6,
+  },
+  meta: { fontSize: 12, color: cores.textoSecundario, marginBottom: 12 },
+  descricao: {
+    fontSize: 14,
+    color: cores.textoSecundario,
+    lineHeight: 20,
+    marginBottom: 20,
+  },
   botao: {
-    backgroundColor: "#1a1a1a",
+    backgroundColor: cores.destaque,
     padding: 12,
     borderRadius: 8,
     alignItems: "center",
   },
-  botaoTexto: { color: "#fff", fontWeight: "600" },
+  botaoTexto: { color: cores.branco, fontWeight: "600" },
 });
 // o [id] é uma forma de dizer ao expo que essa tela é uma variavel

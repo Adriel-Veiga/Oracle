@@ -1,3 +1,4 @@
+//PAGINA DE NOTICIAS (Home do App)
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -11,7 +12,8 @@ import {
 } from "react-native";
 import NoticiaCard from "../../components/NoticiaCard";
 import { buscarNoticias, Noticia } from "../../services/newsApi";
-
+import { cores } from "../../theme/cores";
+// lista de categorias disponíveis para filtro
 const CATEGORIAS = [
   { label: "Geral", value: undefined },
   { label: "Tecnologia", value: "technology" },
@@ -22,6 +24,7 @@ const CATEGORIAS = [
 ];
 
 export default function Home() {
+  // estados para armazenar notícias, status de carregamento, erro, termo de busca e categoria ativa
   const [noticias, setNoticias] = useState<Noticia[]>([]);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState<string | null>(null);
@@ -29,18 +32,18 @@ export default function Home() {
   const [categoriaAtiva, setCategoriaAtiva] = useState<string | undefined>(
     undefined,
   );
-
+  // busca notícias sempre que a categoria ou o termo de busca mudar
   useEffect(() => {
     setCarregando(true);
     setErro(null);
-
+    //garante que a busca é feita depois de 500ms
     const debounce = setTimeout(() => {
       buscarNoticias(categoriaAtiva, busca)
         .then((dados) => setNoticias(dados))
         .catch((e) => setErro(e.message))
         .finally(() => setCarregando(false));
     }, 500);
-
+    //limpa o timeout
     return () => clearTimeout(debounce);
   }, [categoriaAtiva, busca]);
 
@@ -51,6 +54,7 @@ export default function Home() {
         placeholder="Buscar notícias..."
         value={busca}
         onChangeText={setBusca}
+        placeholderTextColor={cores.textoSecundario}
       />
 
       <ScrollView
@@ -81,18 +85,21 @@ export default function Home() {
 
       {carregando ? (
         <View style={styles.centro}>
-          <ActivityIndicator size="large" />
+          <ActivityIndicator size="large" color={cores.destaque} />
         </View>
       ) : erro ? (
         <View style={styles.centro}>
-          <Text>{erro}</Text>
+          <Text style={{ color: cores.texto }}>{erro}</Text>
         </View>
       ) : noticias.length === 0 ? (
         <View style={styles.centro}>
-          <Text>Nenhuma notícia encontrada.</Text>
+          <Text style={{ color: cores.texto }}>
+            Nenhuma notícia encontrada.
+          </Text>
         </View>
       ) : (
         <FlatList
+          style={{ backgroundColor: cores.fundo }}
           data={noticias}
           keyExtractor={(item) => item.url}
           renderItem={({ item }) => <NoticiaCard noticia={item} />}
@@ -104,12 +111,13 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: cores.fundo },
   input: {
     margin: 12,
     padding: 10,
     borderRadius: 8,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: cores.fundoCard,
+    color: cores.texto,
     fontSize: 14,
   },
   chipsContainer: {
@@ -120,23 +128,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 6,
     borderRadius: 20,
-    backgroundColor: "#eee",
+    backgroundColor: cores.fundoCard,
     marginRight: 8,
     height: 32,
   },
   chipAtivo: {
-    backgroundColor: "#1a1a1a",
+    backgroundColor: cores.destaque,
   },
   chipTexto: {
     fontSize: 12,
-    color: "#333",
+    color: cores.textoSecundario,
   },
   chipTextoAtivo: {
-    color: "#fff",
+    color: cores.branco,
   },
   centro: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: cores.fundo,
   },
 });

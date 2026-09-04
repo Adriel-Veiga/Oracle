@@ -1,10 +1,11 @@
+//COMPONENTE DE NOTICIA (card de noticia)
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { alternarFavorito, ehFavorito } from "../services/favoritos";
 import { Noticia } from "../services/newsApi";
-
+import { cores } from "../theme/cores";
 interface Props {
   noticia: Noticia;
 }
@@ -49,7 +50,7 @@ export default function NoticiaCard({ noticia }: Props) {
         <Ionicons
           name={favoritado ? "star" : "star-outline"}
           size={20}
-          color={favoritado ? "#f5c518" : "#fff"}
+          color={favoritado ? cores.destaque : "#fff"}
         />
       </TouchableOpacity>
 
@@ -68,7 +69,7 @@ export default function NoticiaCard({ noticia }: Props) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#f2f2f2",
+    backgroundColor: cores.fundoCard,
     borderRadius: 12,
     marginBottom: 12,
     marginHorizontal: 12,
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
     height: 140,
   },
   imagemVazia: {
-    backgroundColor: "#ddd",
+    backgroundColor: "#12303d",
   },
   estrela: {
     position: "absolute",
@@ -96,9 +97,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
     marginBottom: 4,
+    color: cores.texto,
   },
   meta: {
     fontSize: 11,
-    color: "#666",
+    color: cores.textoSecundario,
   },
 });

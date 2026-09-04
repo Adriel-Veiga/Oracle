@@ -1,9 +1,11 @@
+//PAGINA DE FAVORITOS ()
 import { useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import NoticiaCard from "../../components/NoticiaCard";
 import { listarFavoritos } from "../../services/favoritos";
 import { Noticia } from "../../services/newsApi";
+import { cores } from "../../theme/cores";
 
 export default function Favoritos() {
   const [favoritos, setFavoritos] = useState<Noticia[]>([]);
@@ -17,13 +19,16 @@ export default function Favoritos() {
   if (favoritos.length === 0) {
     return (
       <View style={styles.centro}>
-        <Text>Você ainda não tem notícias favoritas.</Text>
+        <Text style={styles.textoVazio}>
+          Você ainda não tem notícias favoritas.
+        </Text>
       </View>
     );
   }
 
   return (
     <FlatList
+      style={styles.lista}
       data={favoritos}
       keyExtractor={(item) => item.url}
       renderItem={({ item }) => <NoticiaCard noticia={item} />}
@@ -33,9 +38,16 @@ export default function Favoritos() {
 }
 
 const styles = StyleSheet.create({
+  lista: {
+    backgroundColor: cores.fundo,
+  },
   centro: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: cores.fundo,
+  },
+  textoVazio: {
+    color: cores.textoSecundario,
   },
 });

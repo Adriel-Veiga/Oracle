@@ -1,6 +1,7 @@
 //PAGINA DE LAYOUT (Tabs do App)
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
+import { Image } from "react-native";
 import { cores } from "../../theme/cores";
 
 export default function TabsLayout() {
@@ -17,7 +18,12 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Oracle",
+          headerTitle: () => (
+            <Image
+              source={require("../../assets/Oracle1.png")}
+              style={{ width: 100, height: 75, resizeMode: "contain" }}
+            />
+          ),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="newspaper" color={color} size={size} />
           ),
